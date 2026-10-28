@@ -1,0 +1,14 @@
+{
+  "id": 7,
+  "title": "A pattern is a memory, check the real state before acting",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "A pattern says what was true when it was written. Look at the system before relying on it.",
+  "root_cause": "Names, paths and versions change. An old pattern applied blindly can do damage.",
+  "diagnosis_steps": "1. Read the pattern.\n2. Check the current state (service status, file content, version).\n3. Only then apply the fix.",
+  "quick_fix": "Read the pattern, then check the current state (service status, file content, version) before applying it.",
+  "root_fix": "When reality and a pattern disagree, trust reality, then enrich the pattern (append) or propose it to the owner as obsolete.",
+  "severity": "high",
+  "tags": "verify,state,stale,rule"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ops-memory",
+  "version": "0.1.0",
+  "description": "OPS Memory: a pattern system your AI agents search before acting and enrich after every task, used as shared memory. Part 2 of 3. Non-commercial license.",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node --no-warnings server.js",
+    "newkey": "node bin/newkey.js",
+    "import-starter": "node --no-warnings bin/import-starter.js",
+    "backup": "node --no-warnings bin/backup.js",
+    "test": "node --no-warnings test/smoke.js",
+    "try": "node --no-warnings bin/local-setup.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

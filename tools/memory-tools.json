@@ -1,0 +1,271 @@
+{
+  "note": "Neutral tool definitions for agents built on an API with function calling. Send Authorization: Bearer <KEY> on every call to <BASE_URL>. For each tool, take 'input_schema' as the function parameters; {id} in the path is filled from the id argument; for GET the other arguments go in the query string, for POST and PATCH in the JSON body (without id). Convert the shape to your provider's format (OpenAI 'tools', Anthropic 'tools', Gemini 'functionDeclarations').",
+  "tools": [
+    {
+      "name": "memory_boot",
+      "description": "Rules to apply (full text, validated only) and the most recent patterns. Call once at session start.",
+      "method": "GET",
+      "path": "/api/v1/memory/boot",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "memory_search",
+      "description": "Search patterns by 1 to 3 short keywords. Call before every action.",
+      "method": "GET",
+      "path": "/api/v1/memory/search",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "instruction",
+              "lesson",
+              "incident",
+              "feedback",
+              "feature",
+              "snapshot",
+              "template"
+            ]
+          },
+          "project": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "include_obsolete": {
+            "type": "string",
+            "enum": [
+              "1"
+            ]
+          }
+        },
+        "required": [
+          "q"
+        ]
+      }
+    },
+    {
+      "name": "memory_recent",
+      "description": "List the latest patterns. Use status=draft to see what is waiting for the owner.",
+      "method": "GET",
+      "path": "/api/v1/memory/recent",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "instruction",
+              "lesson",
+              "incident",
+              "feedback",
+              "feature",
+              "snapshot",
+              "template"
+            ]
+          },
+          "project": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "validated",
+              "obsolete"
+            ]
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "memory_get",
+      "description": "Read one pattern in full (includes its rev).",
+      "method": "GET",
+      "path": "/api/v1/memory/{id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "memory_create",
+      "description": "Create a draft pattern. Refused if it contains a secret. Returns similar patterns: enrich one of them instead of keeping a duplicate.",
+      "method": "POST",
+      "path": "/api/v1/memory",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "instruction",
+              "lesson",
+              "incident",
+              "feedback",
+              "feature",
+              "snapshot",
+              "template"
+            ]
+          },
+          "project": {
+            "type": "string"
+          },
+          "error_signature": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "root_cause": {
+            "type": "string"
+          },
+          "diagnosis_steps": {
+            "type": "string"
+          },
+          "quick_fix": {
+            "type": "string"
+          },
+          "root_fix": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "tags": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "memory_update",
+      "description": "Update a DRAFT pattern, or add dated text with append: {field: text}. A validated or obsolete pattern is locked (403): create a draft 'Proposed change to pattern N' instead.",
+      "method": "PATCH",
+      "path": "/api/v1/memory/{id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "instruction",
+              "lesson",
+              "incident",
+              "feedback",
+              "feature",
+              "snapshot",
+              "template"
+            ]
+          },
+          "project": {
+            "type": "string"
+          },
+          "error_signature": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "root_cause": {
+            "type": "string"
+          },
+          "diagnosis_steps": {
+            "type": "string"
+          },
+          "quick_fix": {
+            "type": "string"
+          },
+          "root_fix": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "tags": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "append": {
+            "type": "object",
+            "description": "{field: text to add}, fields: project, error_signature, description, root_cause, diagnosis_steps, quick_fix, root_fix, tags"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "memory_occurrence",
+      "description": "Count that the problem happened again, with an optional note (the note is ignored on a validated pattern).",
+      "method": "POST",
+      "path": "/api/v1/memory/{id}/occurrence",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    }
+  ]
+}

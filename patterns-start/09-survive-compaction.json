@@ -1,0 +1,14 @@
+{
+  "id": 9,
+  "title": "Survive a context compaction by re-reading the pattern",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "After a long session is summarised or cut, the details are gone. Re-read the pattern instead of guessing.",
+  "root_cause": "A summary keeps the gist and loses the exact commands and constraints.",
+  "diagnosis_steps": "1. Note the pattern numbers you rely on.\n2. After a compaction, fetch them again (GET /<id>) and the rules (GET /boot).",
+  "quick_fix": "Never continue from the summary alone when a pattern covers the task.",
+  "root_fix": "Write progress into a pattern during long tasks so it survives.",
+  "severity": "medium",
+  "tags": "compaction,context,memory,rule"
+}

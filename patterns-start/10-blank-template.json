@@ -1,0 +1,14 @@
+{
+  "id": 10,
+  "title": "Blank pattern template",
+  "category": "template",
+  "project": "",
+  "error_signature": "",
+  "description": "Copy this structure when you create a pattern. Delete what does not apply.",
+  "root_cause": "Fields: title (searchable), category, error_signature (exact text of the symptom), description (what happens, when), root_cause (why), diagnosis_steps (how to confirm), quick_fix (fast way out), root_fix (lasting fix), severity, tags.",
+  "diagnosis_steps": "Worked example (create with POST /api/v1/memory):\n{\n  \"title\": \"Certificate renewal fails: port 80 closed\",\n  \"category\": \"incident\",\n  \"error_signature\": \"Timeout during connect (likely firewall problem)\",\n  \"description\": \"certbot renew fails on a server where port 80 was closed by the firewall.\",\n  \"root_cause\": \"The HTTP challenge needs port 80 open.\",\n  \"diagnosis_steps\": \"1. sudo certbot renew --dry-run  2. check the firewall rules for port 80\",\n  \"quick_fix\": \"Open port 80, renew, close it again if needed.\",\n  \"root_fix\": \"Keep port 80 open and redirect it to HTTPS in nginx.\",\n  \"severity\": \"medium\",\n  \"tags\": \"certbot,https,firewall\"\n}\nOnly title is required. error_signature should hold the exact text of the symptom, it is what the next search will match.",
+  "quick_fix": "quick_fix: the shortest safe action.",
+  "root_fix": "root_fix: what removes the cause for good.",
+  "severity": "medium",
+  "tags": "template,pattern,structure"
+}

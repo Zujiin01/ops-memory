@@ -1,0 +1,14 @@
+{
+  "id": 2,
+  "title": "Write or enrich a pattern after every task",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "When a task taught something (a bug, a fix, a decision, a trap), record it before closing the task.",
+  "root_cause": "What is not written is lost at the next session, and the next agent starts from zero.",
+  "diagnosis_steps": "1. Search first (pattern 1): does a pattern already cover this?\n2. If yes, enrich it: curl -s -X PATCH -H \"Authorization: Bearer <KEY>\" -H \"Content-Type: application/json\" -d '{\"append\":{\"root_cause\":\"New cause found.\"}}' <BASE_URL>/api/v1/memory/<id>\n   Or, if the problem happened again: POST <BASE_URL>/api/v1/memory/<id>/occurrence with {\"note\":\"what was different\"}\n3. If no, create one: curl -s -X POST -H \"Authorization: Bearer <KEY>\" -H \"Content-Type: application/json\" -d '{\"title\":\"nginx 502 after reload\",\"category\":\"incident\",\"error_signature\":\"502 Bad Gateway\",\"description\":\"What happens, when.\",\"root_cause\":\"Why.\",\"quick_fix\":\"Fastest safe fix.\",\"tags\":\"nginx,502\"}' <BASE_URL>/api/v1/memory\n4. The answer gives the new id and similar patterns. If one covers the same subject, enrich it instead of keeping a duplicate.\nA validated pattern is locked: propose changes to the owner.",
+  "quick_fix": "Create or enrich one pattern per subject, in plain words, with the exact symptom so the next search finds it.",
+  "root_fix": "If the pattern is validated (locked), create a new draft titled 'Proposed change to pattern N' that cites it. The owner merges or validates it.",
+  "severity": "medium",
+  "tags": "write,after,task,rule"
+}

@@ -1,0 +1,14 @@
+{
+  "id": 8,
+  "title": "Hand work over through patterns",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "When one agent stops and another continues, the handoff goes through the store, not through chat.",
+  "root_cause": "Chat history is not shared between agents or between sessions.",
+  "diagnosis_steps": "1. Create or enrich a pattern with what was done, what is left and what to avoid.\n2. Give the next agent the pattern number.\n3. The next agent reads it, verifies the real state (pattern 7), then continues.",
+  "quick_fix": "Write what is done, what is left and what to avoid in a draft pattern, then give the next agent its number.",
+  "root_fix": "One key per agent, so the author of each pattern is known. The owner validates what becomes a rule.",
+  "severity": "medium",
+  "tags": "handoff,agents,team,rule"
+}

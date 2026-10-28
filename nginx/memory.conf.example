@@ -1,0 +1,19 @@
+# /etc/nginx/sites-available/ops-memory  (replace memory.example.com with your domain)
+# Start with this plain HTTP block only. Then run:
+#   sudo certbot --nginx -d memory.example.com
+# certbot adds the HTTPS block, the certificate and the redirect for you.
+# Finish with:  sudo nginx -t && sudo systemctl reload nginx
+server {
+    listen 80;
+    server_name memory.example.com;
+
+    client_max_body_size 1m;
+
+    location / {
+        proxy_pass http://127.0.0.1:3500;
+        proxy_set_header Host $host;
+        # nginx overwrites this header, so a client cannot forge its address
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_read_timeout 30s;
+    }
+}

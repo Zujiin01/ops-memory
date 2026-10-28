@@ -1,0 +1,7 @@
+node_modules/
+config.json
+*.jsonl
+keys.json
+.env
+*.db
+data/

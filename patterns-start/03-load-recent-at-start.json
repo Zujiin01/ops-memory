@@ -1,0 +1,14 @@
+{
+  "id": 3,
+  "title": "Load the recent patterns at the start of every session",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "At the start of a session, call the boot route to get the rules and the most recent patterns.",
+  "root_cause": "Other agents or earlier sessions may have changed things since you last looked.",
+  "diagnosis_steps": "Call once, before the first action: curl -s -H \"Authorization: Bearer <KEY>\" <BASE_URL>/api/v1/memory/boot\nThe answer has two lists: rules (full text, validated only) and recent (short form, latest first). Read the rules, skim the recent list, open (GET /api/v1/memory/<id>) the ones that touch today's work.",
+  "quick_fix": "Read the rules, skim the recent list, open the ones that touch today's work.",
+  "root_fix": "Do this once per session, before the first action.",
+  "severity": "medium",
+  "tags": "boot,session,start,rule"
+}

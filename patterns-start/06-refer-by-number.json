@@ -1,0 +1,14 @@
+{
+  "id": 6,
+  "title": "Refer to patterns by their number",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "Say 'apply pattern 12', not a copy of the text.",
+  "root_cause": "Copied text goes stale and drifts. The number always points to the current version.",
+  "diagnosis_steps": "In instructions, skills and handoffs write the pattern number and let the agent fetch it.",
+  "quick_fix": "GET /api/v1/memory/<id> to read the current text.",
+  "root_fix": "Instructions stay short, and updating one pattern updates every place that refers to it.",
+  "severity": "medium",
+  "tags": "number,reference,instructions,rule"
+}

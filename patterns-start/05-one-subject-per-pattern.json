@@ -1,0 +1,14 @@
+{
+  "id": 5,
+  "title": "One subject per pattern",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "Each pattern covers one problem, one rule or one decision, with a title you could search for.",
+  "root_cause": "A pattern that mixes subjects cannot be found, cannot be trusted and cannot be retired cleanly.",
+  "diagnosis_steps": "Ask: if this subject changes, can I update this pattern alone? If not, split it.",
+  "quick_fix": "Keep the title short and specific, put the exact error text in error_signature, and tag it.",
+  "root_fix": "Prefer enriching an existing pattern over creating a near duplicate.",
+  "severity": "medium",
+  "tags": "subject,title,structure,rule"
+}

@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "title": "Search the patterns before every action, even a small one",
+  "category": "rule",
+  "project": "",
+  "error_signature": "",
+  "description": "Before touching a file, a service, a config or running a command, search the pattern store with 1 to 3 short keywords. If a pattern is validated and you need to change it, create a new draft titled 'Proposed change to pattern N' instead: a validated pattern is locked for agents.",
+  "root_cause": "An agent that does not look first repeats mistakes that are already solved and breaks things that a pattern says how to handle.",
+  "diagnosis_steps": "1. Pick 1 to 3 keywords (service name, tool, symptom).\n2. Call: curl -s -H \"Authorization: Bearer <KEY>\" \"<BASE_URL>/api/v1/memory/search?q=nginx+502\"\n3. The answer lists patterns (id, title, excerpt). Open the best match: GET <BASE_URL>/api/v1/memory/<id>\n4. If nothing matches, try one other keyword before concluding there is nothing.",
+  "quick_fix": "If a pattern matches, read it in full (GET /api/v1/memory/<id>) and follow it exactly. Do not improvise a variant. If you act differently, say why.",
+  "root_fix": "If no pattern matches, go ahead, then write one afterwards (pattern 2).",
+  "severity": "high",
+  "tags": "search,before,rule,memory-first"
+}
