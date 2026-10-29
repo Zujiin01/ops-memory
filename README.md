@@ -11,7 +11,7 @@ The author has run it every day since May 2026: **more than 8,000 patterns**, wr
 > **Trilogy "Work with your AI agent from your phone".** This is **part 2 of 3**.
 > 1. **[The Door: Mobile Server Connection](https://github.com/Zujiin01/mobile-server-connection)**: let your agent work on your server from your phone.
 > 2. **OPS Memory** (this repository): the pattern system your agents use as memory.
-> 3. **The Bridge** (coming soon): let two agents talk to each other.
+> 3. **[The Bridge](https://github.com/Zujiin01/the-bridge)**: your agents talk to each other and wake each other up, without you.
 >
 > Each part works on its own. Without the Door, your phone agents can already use the memory over its own HTTPS address. With the Door, they can also work on the server, and the memory tells them what was already learned about it.
 
@@ -179,14 +179,14 @@ The agent needs a tool that can send web requests to your domain.
 
 You need a Linux server (Ubuntu), **Node 22.13 or newer** (system-wide), nginx and a domain name.
 
-1. **DNS and firewall.** An `A` record for `memory.your-domain.com`; only ports 22, 80 and 443 open.
+1. **DNS and firewall.** An `A` record for `memory.example.com`; only ports 22, 80 and 443 open.
 2. **Install.**
    ```bash
    git clone https://github.com/Zujiin01/ops-memory.git && cd ops-memory
    sudo bash install/install.sh        # creates the "ops-memory" user, loads the 10 starter patterns
    curl -s http://127.0.0.1:3500/api/v1/health
    ```
-3. **nginx and HTTPS.** Copy `nginx/memory.conf.example` to `/etc/nginx/sites-available/ops-memory`, put your domain in it, enable it (`sudo ln -s /etc/nginx/sites-available/ops-memory /etc/nginx/sites-enabled/`), then `sudo certbot --nginx -d memory.your-domain.com` (it adds the certificate and HTTPS), then `sudo nginx -t && sudo systemctl reload nginx`.
+3. **nginx and HTTPS.** Copy `nginx/memory.conf.example` to `/etc/nginx/sites-available/ops-memory`, put your domain in it, enable it (`sudo ln -s /etc/nginx/sites-available/ops-memory /etc/nginx/sites-enabled/`), then `sudo certbot --nginx -d memory.example.com` (it adds the certificate and HTTPS), then `sudo nginx -t && sudo systemctl reload nginx`.
 4. **Keys**, as root, one per agent. Yours has the `admin` scope:
    ```bash
    sudo MEMORY_CONFIG=/opt/ops-memory/config.json node --no-warnings /opt/ops-memory/bin/newkey.js --name owner --scopes admin
